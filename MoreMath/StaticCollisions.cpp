@@ -13,20 +13,13 @@ inline bool StaticLineToLine(
 	double dx = line2_point_x - line1_point_x;
 	double determinant = (line1_destination_x * line2_destination_y - line2_destination_x * line1_destination_y);
 	double dy = line2_point_y - line1_point_y;
-	double s = (line1_destination_y * dx - line1_destination_x * dy);
-	double t = (line2_destination_y * dx - line2_destination_x * dy);
-	if(determinant < 0)
+	
+	if(determinant != 0)
 	{
-		if(0 >= s && s >= determinant && 
-		   0 >= t && t >= determinant)
-		{
-			return true;
-		}
-	}
-	else if(determinant > 0)
-	{
-		if(0 <= s && s <= determinant && 
-		   0 <= t && t <= determinant)
+		double s = (line1_destination_y * dx - line1_destination_x * dy) / determinant;
+		double t = (line2_destination_y * dx - line2_destination_x * dy) / determinant;
+		if(0 <= s && s <= 1 &&
+		   0 <= t && t <= 1)
 		{
 			return true;
 		}
